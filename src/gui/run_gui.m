@@ -27,6 +27,7 @@ hButtonHelp.Callback = @(~, ~) show_help_helper();
 
     function new_network()
         network_handle = network_create_handle();
+        update_plot(0);
     end
 
     function learn_network()
