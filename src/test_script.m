@@ -1,3 +1,5 @@
+% debugging script for recognition
+
 addpath .\data .\gui
 close all;
 a = draw_digit(28);

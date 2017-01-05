@@ -1,4 +1,8 @@
 function obj = update_batch(obj, batch)
+% UPDATE_BATCH Updates partial cost function derivatives on given batch
+% Inputs:
+%   batch = batch of the training data
+% See also https://en.wikipedia.org/wiki/Stochastic_gradient_descent
 nabla_biases = cell(obj.num_layers - 1, 1);
 nabla_weights = cell(obj.num_layers - 1, 1);
 for n = 1:obj.num_layers - 1
@@ -6,6 +10,7 @@ for n = 1:obj.num_layers - 1
     nabla_weights{n} = zeros(size(obj.weights{n}));
 end
 
+% for each input update deltas
 for m=1:obj.batch_size
     [delta_nabla_biases, delta_nabla_weights] = obj.backpropagation(batch{m, 1}, batch{m, 2});
     for n = 1:obj.num_layers - 1

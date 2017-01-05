@@ -1,4 +1,12 @@
 function [draw_panel, load_panel, learn_panel, res_panel] = create_main_panels(hFig)
+% CREATE_MAIN_PANELS creates gui for four main parts of the application
+%   Inputs:
+%       hFig = figure of the application
+%   Outputs:
+%       draw_panel = panel for drawing
+%       load_panel = panel for loading of networks
+%       learn_panel = panel for learning and visuallization
+%       res_panel = panel for displaying results
 draw_panel = uipanel('Parent', hFig, ...
     'Title', 'Drawing board', ...
     'BackgroundColor', 'white', ...

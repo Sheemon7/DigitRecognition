@@ -1,1 +1,1 @@
-http://cis.jhu.edu/~sachin/digit/digit.html
+http://ufldl.stanford.edu/wiki/index.php/Using_the_MNIST_Dataset

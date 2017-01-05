@@ -1,4 +1,10 @@
 function [training_data, test_data] = load_mnist()
+% LOAD_MNIST loads mnist dataset
+%   Inputs:
+%   Outputs:
+%       training_data = training_data for training
+%       test_data = test_data for accuracy evaluation
+
 images = load_mnist_imgs('data\train-images.idx3-ubyte');
 labels = load_mnist_labels('data\train-labels.idx1-ubyte');
 

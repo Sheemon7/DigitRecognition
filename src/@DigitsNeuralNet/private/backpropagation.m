@@ -1,4 +1,11 @@
 function [nabla_biases, nabla_weights] = backpropagation(obj, x, y)
+% BACKPROPAGATION a key algorithm for learning of the network
+%   Inputs:
+%       x = input vector
+%       y = correct image of x after feedforward
+%   Outputs:
+%       obj = network object
+% See also https://en.wikipedia.org/wiki/Backpropagation
 
 nabla_biases = cell(obj.num_layers - 1, 1);
 nabla_weights = cell(obj.num_layers - 1, 1);

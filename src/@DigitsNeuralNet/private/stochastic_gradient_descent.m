@@ -1,4 +1,7 @@
 function obj = stochastic_gradient_descent(obj)
+% STOCHASTIC_GRADIENT_DESCENT Performs SGD algorithm on network (on whole
+% training set)
+% See also https://en.wikipedia.org/wiki/Stochastic_gradient_descent
 n = length(obj.training_data);
 idxs = randperm(n);
 k = 1;

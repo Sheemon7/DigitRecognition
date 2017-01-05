@@ -1,6 +1,10 @@
-function labels = loadMNISTLabels(filename)
-%loadMNISTLabels returns a [number of MNIST images]x1 matrix containing
-%the labels for the MNIST images
+function labels = load_mnist_labels(filename)
+% LOAD_MNIST_LABELS loads mnist labels
+%   Inputs:
+%       filename = name of the file
+%   Outputs:
+%       labels = labels of the images
+%   copyright : http://ufldl.stanford.edu/wiki/index.php/Using_the_MNIST_Dataset
 
 fp = fopen(filename, 'rb');
 assert(fp ~= -1, ['Could not open ', filename, '']);

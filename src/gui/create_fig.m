@@ -1,4 +1,7 @@
 function hFig = create_fig()
+% CREATE_FIG creates figure - main window of application
+%   Outputs:
+%       hFig = returned figure
 hFig = figure();
 hFig.MenuBar = 'none';
 hFig.Color = 'white';

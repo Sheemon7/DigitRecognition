@@ -1,5 +1,10 @@
 function images = load_mnist_imgs(filename)
-%copyright mnist creators
+% LOAD_MNIST_IMGS loads mnist images
+%   Inputs:
+%       filename = name of the file
+%   Outputs:
+%       images = images of the digits
+%   copyright : http://ufldl.stanford.edu/wiki/index.php/Using_the_MNIST_Dataset
 fp = fopen(filename, 'rb');
 assert(fp ~= -1, ['Could not open ', filename, '']);
 

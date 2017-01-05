@@ -1,4 +1,11 @@
 function [training_data, test_data] = load_data(folder)
+% LOAD_DATA loads mnist dataset from give folder
+%   Inputs:
+%       folder = folder, where dataset file resists
+%   Outputs:
+%       training_data = training_data for training
+%       test_data = test_data for accuracy evaluation
+
 data = {};
 for number = 0:9
     fpath = fullfile(folder, sprintf('data%d.txt', number));
