@@ -5,7 +5,8 @@ clear; clc; close all;
 addpath ..\data gui
 [training_data, test_data] = load_mnist();
 batch_size = 20;
-eta = 3.0;
+eta = 0.5;
+lambda = 5.0; % regularization parameter
 run_gui(@create_new_network);
 
     function network = create_new_network()
@@ -15,9 +16,11 @@ run_gui(@create_new_network);
         %       network object capable of learning
         network = DigitsNeuralNet([784, 50, 10]);
         network = network.set_eta(eta);
+        network = network.set_lambda(lambda);
         network = network.set_batch_size(batch_size);
         network = network.set_training_data(training_data);
         network = network.set_test_data(test_data);
+        network = network.initialize();
     end
 
 rmpath ..\data gui

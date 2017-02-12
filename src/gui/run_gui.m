@@ -69,12 +69,19 @@ hButtonHelp.Callback = @(~, ~) show_help();
 
     function send_results(results_callback)
         % get result and evaluate
-        a = results_callback();
+        img = results_callback();
+        [a, prob] = network_handle.evaluate(normalize_matrix(img));
 %         DEBUG
 %         figure;
 %         image(a);
-        hTextResult.String = sprintf('I think it''s digit %d', ...
-            network_handle.evaluate(normalize_matrix(a)));
+        s = '';
+        for n = 1:10
+            if prob(n) > 0.001
+                s = [s sprintf('%d: %.2f%% ', n - 1, prob(n) * 100)];
+            end
+        end
+        hTextResult.String = sprintf('I think it''s digit %d. Probabilities: %s', ...
+            a, s);
     end
 
     function save_game(fname)

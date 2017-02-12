@@ -26,8 +26,11 @@ for n = 1:obj.num_layers - 1
     as{n+1} = a;
 end
 
-delta = cost_function_derivative(y, as{end}) .* ...
-        sigmoidal_function_derivative(zs{end});
+%% QUADRATIC COST FUNCTION
+% delta = quadratic_cost_function_derivative(y, as{end}, zs{end});
+%% CROSS ENTROPY COST FUNCTION
+delta = cross_entropy_function_derivative(y, as{end});
+
 nabla_biases{end} = delta;
 nabla_weights{end} = delta .* as{end - 1}.';
 

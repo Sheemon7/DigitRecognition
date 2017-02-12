@@ -1,4 +1,4 @@
-classdef DigitsNeuralNet
+classdef DigitsNeuralNet < handle
     % This class represents neural network capable of learning
     properties (SetAccess = 'private') %GetAccess = public
         num_layers = 0;
@@ -9,6 +9,7 @@ classdef DigitsNeuralNet
         % learning params
         batch_size = 10;
         eta = 3.0;
+        lambda = 5.0;
         
         epochs_learned = 0;
         epochs_scores = 0;
@@ -29,9 +30,17 @@ classdef DigitsNeuralNet
             
             obj.biases = cell(obj.num_layers - 1, 1);
             obj.weights = cell(obj.num_layers - 1, 1);
-            
+        end
+        
+        function obj = initialize(obj)
+            %% INITIALIZE initiliazes weights and biases
             for n = 1:obj.num_layers - 1
                 obj.biases{n} = randn(obj.sizes(n + 1), 1);
+                
+                %% BETTER
+                % obj.weights{n} = randn(obj.sizes(n + 1), obj.sizes(n)) ./ sqrt(length(obj.training_data));
+                
+                %% OLD
                 obj.weights{n} = randn(obj.sizes(n + 1), obj.sizes(n));
             end
         end
@@ -44,6 +53,16 @@ classdef DigitsNeuralNet
             %       obj = network object
             obj.eta = eta;
         end
+        
+        function obj = set_lambda(obj, lambda)
+            % SET_LAMBDA sets lambda learning parameter
+            %   Inputs:
+            %       lambda = new lambda parameter
+            %   Outputs:
+            %       obj = network object
+            obj.lambda = lambda;
+        end
+        
         
         function obj = set_batch_size(obj, batch_size)
             % SET_BATCH_SIZE sets batch_size learning parameter
@@ -133,6 +152,21 @@ classdef DigitsNeuralNet
             end
         end
         
+        function prob = softmax(obj, a)
+            % SOFTMAX uses softmax function to calculate probability
+            % distribution of all possible numbers
+            %   Inputs:
+            %       a = image (pixels of it)
+            %   Outputs:
+            %       prob = resulting vector of probability distribution
+            for n = 1:obj.num_layers - 2
+                a = sigmoidal_function(obj.weights{n}*a + obj.biases{n});
+            end
+            z = exp(obj.weights{obj.num_layers - 1}*a + obj.biases{obj.num_layers - 1});
+            denum = sum(z);
+            prob = z / denum;
+        end
+            
         function result = test_network(obj)
             % TEST_NETWORK tests accuracy of the network and returns the
             % results
@@ -141,13 +175,15 @@ classdef DigitsNeuralNet
             result = [obj.evaluate_results(), length(obj.test_data)];
         end
         
-        function num = evaluate(obj, a)
+        function [num, prob] = evaluate(obj, img)
             % EVALUATE feedforwards input a through network and returns
-            % guessed numbers
+            % guessed numbers and the probability of them
             %   Outputs:
             %       num = guessed number
-            a = obj.feedforward(a);
+            %       prob = probability distribution of results
+            a = obj.feedforward(img);
             num = DigitsNeuralNet.find_max_idx(a) - 1;
+            prob = obj.softmax(img);
         end
     end
     

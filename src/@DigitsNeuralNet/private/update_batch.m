@@ -21,6 +21,10 @@ end
 
 for n = 1:obj.num_layers - 1
     obj.biases{n} = obj.biases{n} - (obj.eta / obj.batch_size) * nabla_biases{n};
+    %% WITHOUT REGULARIZATION
     obj.weights{n} = obj.weights{n} - (obj.eta / obj.batch_size) * nabla_weights{n};
+    %% WITH REGULARIZATION
+    N = length(obj.training_data);
+    obj.weights{n} = (1 - obj.lambda * obj.eta / N) .* obj.weights{n} - (obj.eta / obj.batch_size) * nabla_weights{n};
 end
 end
